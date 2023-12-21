@@ -1,0 +1,20 @@
+name: Artillery Load Test
+
+on:
+  push:
+      branches:
+        - 'prod'
+        - 'preprod'
+
+jobs:
+  artillery-test:
+    runs-on: ubuntu-latest  # Run on a Linux environment
+
+    steps:
+      - uses: actions/checkout@v3  # Check out the repository code
+      - name: Install Artillery
+        run: npm install -g artillery  # Install Artillery globally
+      - name: Run Artillery Test
+        uses: artilleryio/action-cli@v1
+        with:
+          command: run cf-stacks/artilleryconf.yml
